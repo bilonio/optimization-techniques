@@ -7,7 +7,7 @@ close all;
 formats = ["svg", "eps", "jpg"];
 
 for i = 1:length(formats)
-    mkdir(fullfile('../../figures', 'ex1', sprintf('%s', formats(i))));
+    mkdir(fullfile('../figures', 'ex1', sprintf('%s', formats(i))));
 end
 % mkdir(fullfile('../../figures', 'ex1', 'svg'));
 % mkdir(fullfile('../../figures', 'ex1', 'eps'));
@@ -16,6 +16,7 @@ syms x1 x2;
 f = (x1^3) * (exp(-x1^2 - x2^4));
 
 fig = figure;
+% maximize for best resolution
 fig.WindowState = 'maximized';
 
 % plot the function 
@@ -36,8 +37,8 @@ zlabel('z', 'FontSize', 20, 'Interpreter', 'tex');
 % save plots
 
 for i = 1:length(formats)
- delete(fullfile('../../figures', 'ex1', sprintf("%s", formats(i)), sprintf("fx.%s", formats(i))));
- saveas(fig, fullfile('../../figures', 'ex1', sprintf("%s", formats(i)), sprintf("fx.%s", formats(i))));
+ delete(fullfile('../figures', 'ex1', sprintf("%s", formats(i)), sprintf("fx.%s", formats(i))));
+ saveas(fig, fullfile('../figures', 'ex1', sprintf("%s", formats(i)), sprintf("fx.%s", formats(i))));
 end
 
 
