@@ -1,0 +1,43 @@
+% clear all and close all the streams
+clc;
+clear;
+close all;
+
+% create directories
+formats = ["png", "eps", "jpg"];
+
+for i = 1:length(formats)
+    mkdir(fullfile('../../figures', 'ex1', sprintf('%s', formats(i))));
+end
+
+
+syms x1 x2;
+f = (1/3)*(x1^2) + 3*(x2^2);
+
+fig = figure;
+fig.WindowState = 'maximized';
+
+% plot the function 
+fsurf(f, 'ShowContours', 'on')
+hold on;
+title('Γραφική παράσταση της f(x) = (1/3)* x^{2} + 3*y^{2}', 'FontSize', 20, 'Interpreter','tex');
+
+
+
+
+% make title larger 
+ax = gca;
+% ax.TitleFontSizeMultiplier = 3;
+
+% labels
+ylabel('y', 'FontSize', 20, 'Interpreter', 'tex');
+xlabel('x', 'FontSize', 20, 'Interpreter', 'tex');
+zlabel('z', 'FontSize', 20, 'Interpreter', 'tex');
+
+
+% save plots
+
+for i = 1:length(formats)
+ delete(fullfile('../../figures', 'ex1', sprintf("%s", formats(i)), sprintf("ex1a.%s", formats(i))));
+ saveas(fig, fullfile('../../figures', 'ex1', sprintf("%s", formats(i)), sprintf("ex1a.%s", formats(i))));
+end
