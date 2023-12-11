@@ -30,20 +30,23 @@ gammas = [];
 
 
 tic;
-while (norm(jacx(xk))>epsilon)
+while (norm(jacx(xk)) > epsilon)
             dk = - jacx(xk);
-            v=xk+sk*dk;
+            v = xk + sk * dk;
+
             xk_bar = projVector(a,b,v);
+
             xk = double(xk + gamma * (xk_bar-xk));
             xs = [xs; xk];
             gammas = [gammas; gamma];
+            
             k = k + 1;
+
             if k > maxIterations
                 disp('Maximum iterations reached');
                 break;
             end
             
-
 end
 
 % truncate xs and gammas
