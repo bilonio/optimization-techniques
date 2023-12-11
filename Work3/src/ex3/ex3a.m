@@ -54,7 +54,7 @@ sk=15;
         xlabel('k Αριθμός επαναλήψεων', 'Interpreter','tex')
         ylabel('Τιμή της f(x_k)', 'Interpreter','tex');
         legend('Τιμή της f', 'Ελάχιστη τιμή της f');
-        title(sprintf('Τιμή της f με γκ=  %d για αρχικό σημείο (x, y) = (%d, %d) ~ k αριθμός επαναλήψεων', gamma, x0(1,1), x0(1,2)), 'Interpreter', 'tex');
+        title(sprintf('Τιμή της f με γ_{κ}= %d, s_{k}=%d για αρχικό σημείο (x, y) = (%d, %d) ~ k αριθμός επαναλήψεων', gamma, sk,x0(1,1), x0(1,2)), 'Interpreter', 'tex');
 
         subplot(1,2,2);
 % Plot contour of the objective function 
@@ -85,8 +85,3 @@ legend;
     end
 
 
-% find minimums and keep index
-[minDist, indexDist] = min([results.dist]);
-[minIterations, indexIterations] = min([results.k]);
-[minTime, indexTime] = min([results.time]);
-[minXmin, indexXmin] = min([results.xmin]);
