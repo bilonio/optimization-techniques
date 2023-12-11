@@ -22,8 +22,7 @@ fx = @(x) f1(x(:,1), x(:,2));
 
  
 x0 = [8 -10];
-celoptionarray = [0.1,0.3,3,5];
-titleoptionarray = [0.1, 0.3,3,5]; 
+gammaOptions = [0.1,0.3,3,5];
 subPlotPositions = {1, 2, 3, 4};
 
 count = 1;
@@ -32,9 +31,9 @@ count = 1;
     disp(X0);
     fig = figure();
     fig.WindowState = 'maximized';
-    for j = 1:length(celoptionarray)
+    for i = 1:length(gammaOptions)
 
-        [res] = steepestDescent(1e-3, x0, f, celoptionarray(j));
+        [res] = steepestDescent(1e-3, x0, f, gammaOptions(i));
 
         results(count).xmin = res.xmin;
         results(count).dist = res.dist;
@@ -45,7 +44,7 @@ count = 1;
         results(count).method = res.method;
         results(count).x0 = x0;
 
-        subplot(2,2, subPlotPositions{j});
+        subplot(2,2, subPlotPositions{i});
         plot(1:res.k, fx(res.xs), '-ob');
         
         hold on;
@@ -55,7 +54,7 @@ count = 1;
         xlabel('k Αριθμός επαναλήψεων', 'Interpreter','tex')
         ylabel('Τιμή της f(x_k)', 'Interpreter','tex');
         legend('Τιμή της f', 'Ελάχιστη τιμή της f');
-        title(sprintf('Τιμή της f με γκ=  %d για αρχικό σημείο (x, y) = (%d, %d) ~ k αριθμός επαναλήψεων', titleoptionarray(j), x0(1,1), x0(1,2)), 'Interpreter', 'tex');
+        title(sprintf('Τιμή της f με γ_{k} =  %d για αρχικό σημείο (x, y) = (%d, %d) ~ k αριθμός επαναλήψεων', gammaOptions(i), x0(1,1), x0(1,2)), 'Interpreter', 'tex');
 
         count = count+1;
 
@@ -63,23 +62,7 @@ count = 1;
 
     for k  = 1:length(formats)
          % delete and save new plots
-         delete(fullfile('../../figures', 'ex1', sprintf("%s", formats(k)), sprintf("ex1b(%.0f, %.0f).%s", x0(1,1), x0(1,2), formats(k))));
-         saveas(fig, fullfile('../../figures', 'ex1', sprintf("%s", formats(k)), sprintf("ex1b(%.0f, %.0f).%s", x0(1,1), x0(1,2), formats(k))));
+         delete(fullfile('../../figures', 'ex1', sprintf("%s", formats(k)), sprintf("ex1b.%s", formats(k))));
+         saveas(fig, fullfile('../../figures', 'ex1', sprintf("%s", formats(k)), sprintf("ex1b.%s", formats(k))));
     end
 
-
-% find minimums and keep index
-[minDist, indexDist] = min([results.dist]);
-[minIterations, indexIterations] = min([results.k]);
-[minTime, indexTime] = min([results.time]);
-[minXmin, indexXmin] = min([results.xmin]);
-
-% display minimums
-dist = ['x0 =' , num2str(results(indexDist).x0), ', method ', results(indexDist).method, 'for minimum distance of ', num2str(minDist)];
-disp(dist);
-iterations = ['x0 = ', num2str(results(indexIterations).x0), ', method ', results(indexIterations).method, 'for minimum iterations of ', num2str(minIterations)];
-disp(iterations);
-time = ['x0 = ', num2str(results(indexTime).x0), ', method ', results(indexTime).method, 'for minimum running time of ', num2str(minTime)];
-disp(time);
-xmin = ['x0 = ', num2str(results(indexXmin).x0), ', method ', results(indexXmin).method, 'for minimum final X of ', num2str(minXmin)];
-disp(xmin);
